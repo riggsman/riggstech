@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Navbar as BootstrapNavbar, Nav, Container, Badge } from 'react-bootstrap';
-import { FaSignOutAlt, FaHome, FaUsers, FaEnvelope, FaPaperPlane } from 'react-icons/fa';
+import { FaSignOutAlt, FaHome, FaUsers, FaEnvelope, FaPaperPlane, FaPhoenixSquadron, FaPersonBooth, FaUser } from 'react-icons/fa';
 import { AdminContext } from '../../context/AdminContext';
 import { useNavigate, NavLink } from 'react-router';
 
@@ -24,7 +24,7 @@ const AdminNav = () => {
     >
       <Container>
         <BootstrapNavbar.Brand as={NavLink} to="/admin/dashboard" className="fw-bold fs-4">
-          <FaHome className="me-2" /> SkillAcademy Admin
+          <FaHome className="me-2" /> RiggsTech
         </BootstrapNavbar.Brand>
         
         <BootstrapNavbar.Toggle aria-controls="admin-nav" />
@@ -60,7 +60,22 @@ const AdminNav = () => {
                 </Badge>
               )}
             </Nav.Link>
+             <Nav.Link as={NavLink} to="/admin/messages" className="fw-bold position-relative">
+              <FaEnvelope className="me-1" /> Inquiries
+              {stats.newMessages > 0 && (
+                <Badge 
+                  bg="danger" 
+                  className="position-absolute top-0 start-100 translate-middle badge rounded-pill"
+                  style={{ fontSize: '0.7em' }}
+                >
+                  {stats.newMessages}
+                </Badge>
+              )}
+            </Nav.Link>
             
+            <Nav.Link as={NavLink} to="/admin/users" className="fw-bold">
+              <FaUser className="me-1" /> Users
+            </Nav.Link>
             <Nav.Link as={NavLink} to="/admin/send-email" className="fw-bold">
               <FaPaperPlane className="me-1" /> Send Email
             </Nav.Link>

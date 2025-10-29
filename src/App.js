@@ -23,14 +23,19 @@ import PrivateRoute from './components/PrivateRoute';
 import UserNav from './components/UserNav';
 import { UserContext } from './context/UserContext';
 import { DashboardProvider } from "./context/DashboardContext";
+import { AdminContext } from './context/AdminContext';
+import AdminNav from './components/admin/AdminNav';
+import AdminUserManagement from './components/admin/AdminUserManagement';
 
 
 function App() {
   const {isLoggedIn} = useContext(UserContext);
+  const {isAdmin,isAdminLoggedIn} = useContext(AdminContext);
   return (
     <Router>  {/* ✅ Router WRAPS EVERYTHING */}
       <div className="App">
-         {isLoggedIn === true ? <UserNav /> : <Navbar />}
+        {isAdminLoggedIn === true && isAdmin === true ? <AdminNav /> :
+         isLoggedIn === true ? <UserNav /> : <Navbar />}
         
         <Routes>  {/* ✅ ALL PAGES AS ROUTES */}
           {/* HOME - Landing Page */}
@@ -60,7 +65,7 @@ function App() {
            {/* onComplete={() => navigate('/success')} */}
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<ContactForm />} />
-          <Route path="/register" element={<RegistrationForm />} />
+          <Route path="/register" element={<RegistrationForm />} /> {/*<RegistrationForm />*/}
           <Route path="/login" element={<UserLogin />} />
           <Route path="/user/message" element={<MessagesUI />} />
           <Route path="/user/dashboard" element={<UserDashboard />} />
@@ -77,6 +82,8 @@ function App() {
       <Route path="/admin/students" element={<PrivateAdminRoute><StudentsList /></PrivateAdminRoute>} />
       <Route path="/admin/messages" element={<PrivateAdminRoute><MessagesList /></PrivateAdminRoute>} />
       <Route path="/admin/send-email" element={<PrivateAdminRoute><SendEmail /></PrivateAdminRoute>} />
+      <Route path="/admin/users" element={<PrivateAdminRoute><AdminUserManagement /></PrivateAdminRoute>} />
+
         </Routes>
         
         <Footer />

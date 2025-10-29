@@ -3,9 +3,12 @@ import { Container, Row, Col, Form, Button, Alert, Card, Spinner } from 'react-b
 import { FaEnvelope, FaLock } from 'react-icons/fa';
 import { AdminContext } from '../../context/AdminContext';
 import { useNavigate } from 'react-router';
+import envConfig from '../../config/envConfig';
+
+const API_URL = envConfig.API_URL;
 
 const AdminLogin = () => {
-  const [formData, setFormData] = useState({ email: '', password: '' });
+  const [formData, setFormData] = useState({ username: '', password: '' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const { login } = useContext(AdminContext);
@@ -20,14 +23,15 @@ const AdminLogin = () => {
     setLoading(true);
     setError('');
     try {
-      const response = await fetch('/api/admin/login', {
+      const response = await fetch(`${API_URL}/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
       });
+      console.log("ADMIN LOGIN REQUEST ", response.headers)
       const data = await response.json();
-      if (data.success) {
-        login(data.token);
+      if (response.ok) {
+        login(data);
         navigate('/admin/dashboard');
       } else {
         setError(data.message || 'Login failed');
@@ -50,11 +54,11 @@ const AdminLogin = () => {
                 {error && <Alert variant="danger" className="mb-4 rounded-pill text-center">{error}</Alert>}
                 <Form onSubmit={handleSubmit}>
                   <Form.Group className="mb-4">
-                    <Form.Label className="fw-bold"><FaEnvelope className="me-2" />Email</Form.Label>
+                    <Form.Label className="fw-bold"><FaEnvelope className="me-2" />Username</Form.Label>
                     <Form.Control 
-                      type="email" 
-                      name="email" 
-                      value={formData.email} 
+                      type="text" 
+                      name="username" 
+                      value={formData.username} 
                       onChange={handleChange} 
                       className="rounded-pill px-4 py-3" 
                       required 

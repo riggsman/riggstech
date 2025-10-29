@@ -62,6 +62,18 @@ const Dashboard = () => {
                 </Card.Body>
               </Card>
             </Col>
+
+            <Col md={4}>
+              <Card className="hover-card shadow-sm border-0 text-center h-100">
+                <Card.Body className="p-4">
+                  <div className="icon-wrapper mb-3 mx-auto text-danger">
+                    <FaUsers size={40} />
+                  </div>
+                  <h5 className="fw-bold mb-2">Total Registered Students</h5>
+                  <Badge bg="danger" className="fs-3 px-3 py-2">{stats.newMessages}</Badge>
+                </Card.Body>
+              </Card>
+            </Col>
             
             <Col md={4}>
               <Card className="hover-card shadow-sm border-0 text-center h-100">
@@ -74,7 +86,17 @@ const Dashboard = () => {
                 </Card.Body>
               </Card>
             </Col>
-            
+            <Col md={4}>
+              <Card className="hover-card shadow-sm border-0 text-center h-100">
+                <Card.Body className="p-4">
+                  <div className="icon-wrapper mb-3 mx-auto text-danger">
+                    <FaEnvelope size={40} />
+                  </div>
+                  <h5 className="fw-bold mb-2">Inquiries</h5>
+                  <Badge bg="danger" className="fs-3 px-3 py-2">{stats.newMessages}</Badge>
+                </Card.Body>
+              </Card>
+            </Col>
             <Col md={4}>
               <Card className="hover-card shadow-sm border-0 text-center h-100">
                 <Card.Body className="p-4">
