@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Form, Button, Alert } from 'react-bootstrap';
 import { FaHeadset, FaEnvelope, FaUser, FaComment } from 'react-icons/fa';
+import envConfig from '../config/envConfig'; 
+
+const API_URL = envConfig.API_URL;
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -11,6 +14,7 @@ const ContactForm = () => {
     message: ''
   });
   const [showSuccess, setShowSuccess] = useState(false);
+  const [showError, setShowError] = useState(false);
 
   const handleChange = (e) => {
     setFormData({
@@ -19,13 +23,21 @@ const ContactForm = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Simulate API call
-    setTimeout(() => {
+    const response = await fetch(`${API_URL}/contact/submit`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData)
+    });
+    const data = await response.json();
+    if (response.ok) {
       setShowSuccess(true);
       setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
-    }, 1000);
+    } 
+    else {
+      setShowError(true);
+    }
   };
 
   return (
@@ -54,7 +66,7 @@ const ContactForm = () => {
                     <FaEnvelope className="me-3 fs-4" />
                     <div>
                       <h6 className="mb-1">Email Us</h6>
-                      <p className="mb-0">hello@skillacademy.com</p>
+                      <p className="mb-0">support@riggstech.com</p>
                     </div>
                   </div>
 
@@ -62,7 +74,7 @@ const ContactForm = () => {
                     <FaHeadset className="me-3 fs-4" />
                     <div>
                       <h6 className="mb-1">Call Us</h6>
-                      <p className="mb-0">+1 (555) 123-4567</p>
+                      <p className="mb-0">(+237) 682-835-503</p>
                     </div>
                   </div>
 
@@ -70,7 +82,7 @@ const ContactForm = () => {
                     <FaComment className="me-3 fs-4" />
                     <div>
                       <h6 className="mb-1">Live Chat</h6>
-                      <p className="mb-0">Mon-Fri 9AM-6PM EST</p>
+                      <p className="mb-0">Mon-Fri 9AM-6PM WAT</p>
                     </div>
                   </div>
                 </div>
@@ -81,6 +93,11 @@ const ContactForm = () => {
                   {showSuccess && (
                     <Alert variant="success" className="mb-4">
                       ✅ Message sent successfully! We'll respond within 24 hours.
+                    </Alert>
+                  )}
+                  {showError && (
+                    <Alert variant="success" className="mb-4">
+                      We are sorry. We're currently experiencing technical difficulties. Please try again later.
                     </Alert>
                   )}
 
@@ -132,7 +149,7 @@ const ContactForm = () => {
                             name="phone"
                             value={formData.phone}
                             onChange={handleChange}
-                            placeholder="+1 (555) 123-4567"
+                            placeholder="682835507"
                             className="rounded-pill px-4"
                           />
                         </Form.Group>

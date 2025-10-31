@@ -66,7 +66,7 @@ useEffect(() => {
 
   const handleCreate = async () => {
     try {
-      const res = await fetch(`${API_BASE}/admin/users`, {
+      const res = await fetch(`${API_BASE}/admin/user`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(createForm)
@@ -151,7 +151,7 @@ useEffect(() => {
             <Table hover responsive>
               <thead className="table-light">
                 <tr>
-                  <th>Name</th>
+                  <th>Full Name</th>
                   <th>Username</th>
                   <th>Email</th>
                   <th>Phone</th>

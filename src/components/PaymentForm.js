@@ -54,7 +54,8 @@ const PaymentForm = ({ userData, onComplete, onBack, isRegistration = false }) =
     const phoneError = validateDetails();
     setLoading(true);
     if (phoneError) return setError(phoneError);
-      const result = isRegistration ? await await paymentInitiatorProvider(formData,userData) : await paymentProvider(formData); //userData
+      const result = isRegistration ? await paymentInitiatorProvider(formData,userData) : await paymentProvider(formData); //userData
+      // const result =await paymentInitiatorProvider(formData,userData); //userData
       try{
         setLoading(true);
       if (result.success) {

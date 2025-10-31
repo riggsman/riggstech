@@ -30,13 +30,17 @@ import AdminUserManagement from './components/admin/AdminUserManagement';
 
 function App() {
   const {isLoggedIn} = useContext(UserContext);
-  const {isAdmin,isAdminLoggedIn} = useContext(AdminContext);
+  const {isAdminLoggedIn} = useContext(AdminContext);
   return (
     <Router>  {/* ✅ Router WRAPS EVERYTHING */}
       <div className="App">
-        {isAdminLoggedIn === true && isAdmin === true ? <AdminNav /> :
-         isLoggedIn === true ? <UserNav /> : <Navbar />}
-        
+       {isAdminLoggedIn ? (
+        <AdminNav />
+      ) : isLoggedIn ? (
+        <UserNav />
+      ) : (
+        <Navbar />
+      )}
         <Routes>  {/* ✅ ALL PAGES AS ROUTES */}
           {/* HOME - Landing Page */}
           <Route path="/" element={

@@ -3,6 +3,7 @@ import { Container, Row, Col, Form, Button, Alert, Spinner, Card } from 'react-b
 import { FaUserPlus, FaLock, FaEnvelope, FaPhone, FaGraduationCap } from 'react-icons/fa';
 import PaymentForm from './PaymentForm';
 import { RegistrationProvider } from '../services/FetchPrograms';
+import { useNavigate } from 'react-router';
 
 
 const RegistrationForm = () => {
@@ -15,6 +16,7 @@ const RegistrationForm = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
 
   // const handleChange = (e) => {
   //   setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -72,7 +74,9 @@ const RegistrationForm = () => {
   const handlePaymentComplete = (success) => {
     if (success) {
       setShowSuccess(true);
+      error && setError('');
       setTimeout(() => alert('Welcome to SkillAcademy!'), 2000);
+      navigate('/login');
     }
   };
 

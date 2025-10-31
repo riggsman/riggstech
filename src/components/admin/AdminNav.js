@@ -73,7 +73,7 @@ const AdminNav = () => {
               )}
             </Nav.Link>
             
-            <Nav.Link as={NavLink} to="/admin/users" className="fw-bold">
+            <Nav.Link as={NavLink} to="/admin/users" end className="fw-bold">
               <FaUser className="me-1" /> Users
             </Nav.Link>
             <Nav.Link as={NavLink} to="/admin/send-email" className="fw-bold">

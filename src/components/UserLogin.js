@@ -31,6 +31,10 @@ const UserLogin = () => {
       const data = await response.json();
       
       if (response.ok) {
+        if(!data.isStudent) {
+          setError('Unauthorised login method');
+          return
+        }
         console.log(data);
         login(data);
         const t = localStorage.getItem('userToken');

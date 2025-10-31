@@ -15,7 +15,7 @@ async function paymentInitiatorProvider(formData,userData) {
           email: userData.email
         })
       });
-      console.log(response.body);
+      console.log("USER DATA EMAIL",userData.email);
        // Attempt to parse JSON body if present
        let data = null;
         try {
@@ -23,6 +23,7 @@ async function paymentInitiatorProvider(formData,userData) {
         } catch {
         data = null;
         }
+        console.log("DATA",data);
     if(response.ok){
         return {
                 success: data?.success,
@@ -89,7 +90,7 @@ async function paymentVerificationProvider(formData,userData) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...formData,
-          userId: userData.userId
+          // userId: userData.phone
         })
       });
        // Attempt to parse JSON body if present

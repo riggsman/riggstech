@@ -26,6 +26,8 @@
   "scripts": {
     "default": "react-scripts start",
     "start": "cross-env HOST=0.0.0.0 PORT=3000 react-scripts start",
+    "start:home": "copy /Y .env.home .env && npm start",
+    "start:office": "copy /Y .env.office .env && npm start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

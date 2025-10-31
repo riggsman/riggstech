@@ -5,6 +5,7 @@ const envConfig = {
   API_URL: process.env.REACT_APP_API_URL,
 //   ENVIRONMENT: process.env.REACT_APP_ENV,
   VERSION: process.env.REACT_APP_VERSION,
+  WS_URL: process.env.REACT_APP_WS_URL,
 };
 
 export default envConfig;
