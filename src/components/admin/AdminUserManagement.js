@@ -80,7 +80,7 @@ useEffect(() => {
   };
 
   const toggleBlock = async (userId) => {
-    await fetch(`${API_BASE}/admin/users/${userId}/toggle-active`, { method: 'PATCH' });
+    await fetch(`${API_BASE}/admin/users/${userId}/toggle`, { method: 'PATCH' });
     fetchUsers();
   };
 
@@ -187,7 +187,7 @@ useEffect(() => {
                         onClick={() => toggleBlock(u.id)}
                         className="me-1"
                       >
-                        {u.is_active ? <FaBan /> : <FaCheckCircle />}
+                        {u.is_active ? <FaCheckCircle />:<FaBan /> }
                       </Button>
 
                       <Dropdown size="sm" className="d-inline">

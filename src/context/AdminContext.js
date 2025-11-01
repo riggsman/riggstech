@@ -94,25 +94,25 @@ export const AdminProvider = ({ children }) => {
   // };
 
   // // === FETCH WITH CACHE ===
-  // const fetchStudents = async (currentToken) => {
-  //   if (isCacheValid('students')) {
-  //     const { data } = cache.current.students;
-  //     updateStatsFromStudents(data);
-  //     return;
-  //   }
+  const fetchStudents = async (currentToken) => {
+    // if (isCacheValid('students')) {
+    //   const { data } = cache.current.students;
+    //   updateStatsFromStudents(data);
+    //   return;
+    // }
 
-  //   try {
-  //     const res = await fetch(`${API_URL}/admin/students`, {
-  //       headers: { Authorization: `Bearer ${currentToken}` },
-  //     });
-  //     if (!res.ok) throw new Error('Failed to fetch students');
-  //     const data = await res.json();
-  //     setCache('students', data);
-  //     updateStatsFromStudents(data);
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // };
+    try {
+      const res = await fetch(`${API_URL}/admin/students`, {
+        headers: { Authorization: `Bearer ${currentToken}` },
+      });
+      if (!res.ok) throw new Error('Failed to fetch students');
+      const data = await res.json();
+      // setCache('students', data);
+      updateStatsFromStudents(data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   const fetchMessages = async (currentToken) => {
     // if (isCacheValid('messages')) {
@@ -160,7 +160,7 @@ export const AdminProvider = ({ children }) => {
   const fetchStats = useCallback(async (currentToken = token) => {
     if (!currentToken) return;
     await Promise.all([
-      // fetchStudents(currentToken),
+      fetchStudents(currentToken),
       fetchMessages(currentToken),
     ]);
   }, [token]);

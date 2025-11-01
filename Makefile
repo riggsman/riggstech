@@ -4,3 +4,6 @@ office:
 	npm run start:office
 home:
 	npm run start:home
+
+build:
+	npm run build

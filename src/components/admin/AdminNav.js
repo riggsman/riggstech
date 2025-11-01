@@ -10,7 +10,8 @@ const AdminNav = () => {
 
   const handleLogout = () => {
     logout();
-    navigate('/admin/login');
+    // navigate('/');
+    window.location.href = "/";
   };
 
   return (

@@ -59,7 +59,6 @@ const Dashboard = () => {
 
   return (
     <div>
-      <AdminNav />
       <section className="py-5 bg-light min-vh-100">
         <Container>
           <Row className="justify-content-center mb-5">

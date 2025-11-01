@@ -81,12 +81,12 @@ function App() {
         }/> */}
 
           {/* Admin Routes */}
-      <Route path="/admin" element={<AdminLogin />} />
-      <Route path="/admin/dashboard" element={<PrivateAdminRoute><Dashboard /></PrivateAdminRoute>} />
-      <Route path="/admin/students" element={<PrivateAdminRoute><StudentsList /></PrivateAdminRoute>} />
-      <Route path="/admin/messages" element={<PrivateAdminRoute><MessagesList /></PrivateAdminRoute>} />
-      <Route path="/admin/send-email" element={<PrivateAdminRoute><SendEmail /></PrivateAdminRoute>} />
-      <Route path="/admin/users" element={<PrivateAdminRoute><AdminUserManagement /></PrivateAdminRoute>} />
+          <Route path="/admin" element={<AdminLogin />} />
+          <Route path="/admin/dashboard" element={<PrivateAdminRoute><Dashboard /></PrivateAdminRoute>} />
+          <Route path="/admin/students" element={<PrivateAdminRoute><StudentsList /></PrivateAdminRoute>} />
+          <Route path="/admin/messages" element={<PrivateAdminRoute><MessagesList /></PrivateAdminRoute>} />
+          <Route path="/admin/send-email" element={<PrivateAdminRoute><SendEmail /></PrivateAdminRoute>} />
+          <Route path="/admin/users" element={<PrivateAdminRoute><AdminUserManagement /></PrivateAdminRoute>} />
 
         </Routes>
         
