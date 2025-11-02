@@ -125,7 +125,7 @@ const About = () => {
                 <Col lg={4} className="text-center">
                   <div className="founder-image mb-4">
                     <img 
-                      src="https://via.placeholder.com/250x250/667eea/ffffff?text=Eyambe+Rigobert+Ashu" 
+                      src="text=Eyambe+Rigobert+Ashu" 
                       alt="Eyambe Rigobert Ashu - Founder & CEO RiggsTech" 
                       className="img-fluid rounded-circle shadow-lg" 
                       style={{ width: '250px', height: '250px', objectFit: 'cover' }}

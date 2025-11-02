@@ -92,7 +92,8 @@ const ServicesSection = () => {
                       <Button
                         variant="primary"
                         className="w-100"
-                        onClick={() => window.location.href = '#enroll'}
+                        onClick={() => window.location.href = '/register'}
+                        // as='/register'
                       >
                         Enroll Now
                       </Button>
