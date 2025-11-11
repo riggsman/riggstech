@@ -23,6 +23,8 @@ const PaymentForm = ({ userData, onComplete, onBack, isRegistration = false }) =
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
+  let _enrollmentData = sessionStorage.getItem("selectedProgram");
+  let enrollmentData = JSON.parse(_enrollmentData);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -135,9 +137,9 @@ const PaymentForm = ({ userData, onComplete, onBack, isRegistration = false }) =
                   <Form.Control
                     type="tel"
                     name="phone"
-                    value={formData.phone}
+                    value={userData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value.startsWith('+237') ? e.target.value : '+237' + e.target.value.replace(/\D/g, '') })}
-                    placeholder="+237 6XXXXXXXX"
+                    placeholder="6XXXXXXXXXXXXX"
                     className="rounded-pill px-4"
                   />
                 </Form.Group>

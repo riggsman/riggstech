@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Form, Button, Alert, Spinner, Card } from 'react-bootstrap';
 import { FaUserPlus, FaLock, FaEnvelope, FaPhone, FaGraduationCap } from 'react-icons/fa';
 import PaymentForm from './PaymentForm';
@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router';
 const RegistrationForm = () => {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
-    firstName: '', lastName: '', email: '', phone: '', password: '', confirmPassword: '', program: '', username: '',
+    firstName: '', lastName: '', email: '', phone: '', password: '', confirmPassword: '', program: '', username: '', price: ''
   });
   const [paymentData, setPaymentData] = useState({});
   const [showSuccess, setShowSuccess] = useState(false);
@@ -17,6 +17,23 @@ const RegistrationForm = () => {
   const [error, setError] = useState('');
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
+
+  let _enrollmentData = sessionStorage.getItem("selectedProgram");
+  let enrollmentData = JSON.parse(_enrollmentData);
+  console.log("ENROLLMANE DATA ",enrollmentData.price)
+
+  /** --------------------------------------------------------------
+   *  On mount read the course that was saved by ServicesSection.
+   *  If nothing is saved we keep the placeholder.
+   *  -------------------------------------------------------------- */
+  useEffect(() => {
+    const saved = sessionStorage.getItem("selectedCourse");
+    if (saved) {
+      const course = JSON.parse(saved);
+      // The <option> values below match the **course name** exactly.
+      setFormData((prev) => ({ ...prev, program: course.name }));
+    }
+  }, []);
 
   // const handleChange = (e) => {
   //   setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -41,6 +58,19 @@ const RegistrationForm = () => {
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
+
+  // In your Register or Payment component
+  useEffect(() => {
+    const savedProgram = sessionStorage.getItem('selectedProgram');
+    if (savedProgram) {
+      const program = JSON.parse(savedProgram);
+      console.log("Selected Program:", program);
+      // Use: program.price, program.title, etc.
+    } else {
+      // Optional: redirect back if no program selected
+      // navigate('/services');
+    }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -146,18 +176,33 @@ const RegistrationForm = () => {
                       </Form.Group>
                     </Col>
                     <Col md={6} className="mb-4">
-                      <Form.Group>
-                        <Form.Label className="fw-bold"><FaGraduationCap className="me-2" />Program</Form.Label>
+                      <Form.Group className="mb-3">
+                        <Form.Label className="fw-bold">
+                          <FaGraduationCap className="me-2" />Program
+                        </Form.Label>
                         <Form.Control
-                          as="select" name="program" value={formData.program} onChange={handleChange}
-                          isInvalid={!!errors.program} className="rounded-pill px-4"
+                          as="select"
+                          name="program"
+                          value={formData.program}
+                          onChange={handleChange}
+                          isInvalid={!!errors.program}
+                          className="rounded-pill px-4"
                         >
+                          {/* 1. If a course was selected on the services page → show it first */}
+                          {formData.program && (
+                            <option value={formData.program}>{formData.program}</option>
+                          )}
+
+                          {/* 2. Default options – keep them in sync with your backend */}
                           <option value="">Select your program</option>
-                          <option value="web-development">Web Development</option>
-                          <option value="data-science">Data Science</option>
-                          <option value="graphic-design">Graphic Design</option>
+                          <option value="Web Development">Web Development</option>
+                          <option value="Data Science">Data Science</option>
+                          <option value="Graphic Design">Graphic Design</option>
                         </Form.Control>
-                        <Form.Control.Feedback type="invalid">{errors.program}</Form.Control.Feedback>
+
+                        <Form.Control.Feedback type="invalid">
+                          {errors.program}
+                        </Form.Control.Feedback>
                       </Form.Group>
                     </Col>
                   </Row>
@@ -216,12 +261,11 @@ const RegistrationForm = () => {
                     ) : (
                       <>
                         <FaGraduationCap className="me-2" />
-                        Create Account & Pay $49
+                        Create Account & Pay {enrollmentData.price}
                       </>
                     )}
                   </Button>
-                </Form>
-
+                </Form>                    
                 <div className="text-center mt-4">
                   <small className="text-muted">
                     By creating an account, you agree to our <a href="http://192.168.137.1:7000/terms" className="text-primary">Terms</a> and <a href="http://192.168.137.1:7000/privacy" className="text-primary">Privacy Policy</a>

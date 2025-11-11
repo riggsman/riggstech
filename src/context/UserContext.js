@@ -2,6 +2,7 @@
 import React, { createContext, useState, useEffect } from 'react';
 import { jwtDecode } from "jwt-decode";
 import envConfig from "../config/envConfig";
+import { safeJsonParser } from '../components/SafeJsonParser';
 
 const API_URL = envConfig.API_URL;
 
@@ -25,13 +26,21 @@ export const UserAuthProvider = ({ children }) => {
   // src/context/UserContext.jsx  (add these lines)
 
   const [activeSection, setActiveSection] = useState(null);   // <-- NEW
+
+  const [submittedAssignments, setSubmittedAssignments] = useState(null);
+
+  const fetchSubmittedAssignments = async () => {
+    const res = await fetch(`${API_URL}/user/assignments`, { headers: { Authorization: `Bearer ${token}` } });
+    const data = await safeJsonParser(res);
+    setSubmittedAssignments(data.assignments);
+  };
     // inside the Provider value:
     <UserContext.Provider value={{
       /* … existing values … */
       activeSection,
+      fetchSubmittedAssignments,
       setActiveSection,          // <-- expose it
   }}>
-
 </UserContext.Provider>
   // -----------------------------------------------------------------
   //  Login / Logout / Token decode
@@ -137,7 +146,7 @@ export const UserAuthProvider = ({ children }) => {
       isUser, user, isLoggedIn,
       profileData, setUserProfile, fetchUserProfile,
       registeredPrograms, setRegisteredPrograms, fetchRegisteredPrograms,
-      submitAssignment, activeSection,
+      submitAssignment,fetchSubmittedAssignments,setSubmittedAssignments, activeSection,
       setActiveSection,
     }}>
       {children}

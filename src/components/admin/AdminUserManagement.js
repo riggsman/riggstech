@@ -11,7 +11,7 @@ import envConfig from '../../config/envConfig';
 
 const API_BASE = envConfig.API_URL;
 
-const ROLES = ['admin', 'staff', 'student'];
+const ROLES = ['ADMIN', 'STAFF', 'STUDENT'];
 
 const AdminUserManagement = () => {
   const [users, setUsers] = useState([]);
@@ -21,7 +21,7 @@ const AdminUserManagement = () => {
   // Create modal
   const [showCreate, setShowCreate] = useState(false);
   const [createForm, setCreateForm] = useState({
-    first_name: '', last_name: '', email: '', username: '', password: '', role: 'student', phone: ''
+    first_name: '', last_name: '', email: '', username: '', password: '', role: 'ADMIN', phone: ''
   });
 
   // Filter
@@ -80,7 +80,7 @@ useEffect(() => {
   };
 
   const toggleBlock = async (userId) => {
-    await fetch(`${API_BASE}/admin/users/${userId}/toggle`, { method: 'PATCH' });
+    window.confirm('Are you sure you want perform this action?') && await fetch(`${API_BASE}/admin/users/${userId}/toggle`, { method: 'PATCH' });
     fetchUsers();
   };
 
@@ -144,7 +144,7 @@ useEffect(() => {
             </Row>
           </Card.Body>
         </Card>
-
+        {console.log("USER DATA ",users)}
         {/* Users Table */}
         <Card>
           <Card.Body>
@@ -188,6 +188,7 @@ useEffect(() => {
                         className="me-1"
                       >
                         {u.is_active ? <FaCheckCircle />:<FaBan /> }
+                        {console.log(u.is_active)}
                       </Button>
 
                       <Dropdown size="sm" className="d-inline">

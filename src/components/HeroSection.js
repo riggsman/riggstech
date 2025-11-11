@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { FaRocket, FaLaptopCode, FaChartLine } from 'react-icons/fa';
+// import landingimage from '../assets/landing.avif';
 
 const HeroSection = () => {
   return (
@@ -51,7 +52,7 @@ const HeroSection = () => {
           <Col lg={6}>
             <div className="hero-image text-center">
               <img 
-                src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
+                src="assets/landingimage.avif"
                 alt="Students learning online" 
                 className="img-fluid rounded shadow-lg"
                 style={{ maxHeight: '500px', objectFit: 'cover' }}

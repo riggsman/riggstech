@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { Container, Row, Col, Form, Button, Alert, Card, Spinner } from 'react-bootstrap';
 import { FaEnvelope, FaLock } from 'react-icons/fa';
-import { UserContext } from './../context/UserContext';
+import { UserAuthProvider, UserContext } from './../context/UserContext';
 import { useNavigate } from 'react-router';
 import envConfig from "../config/envConfig";
 
@@ -29,14 +29,20 @@ const UserLogin = () => {
         body: JSON.stringify(formData)
       });
       const data = await response.json();
+      // console.log("LOGIN DATA: " + JSON.stringify(data));
       
       if (response.ok) {
-        if(!data.isStudent) {
-          setError('Unauthorised login method');
-          return
-        }
-        console.log(data);
         login(data);
+        // if(!data.isStudent) {
+        //   setError('Unauthorised login method');
+        //   return
+        // }
+        // UserAuthProvider.login(data);
+        console.log(data);
+        console.log("USER STATUS: " + UserAuthProvider.is_student);
+
+        
+
         const t = localStorage.getItem('userToken');
         console.log("Access token: " + t);
         navigate('/user/dashboard');
